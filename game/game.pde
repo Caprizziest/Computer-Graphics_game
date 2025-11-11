@@ -10,6 +10,11 @@ float ballSpeedVert = 0;
 float airFriction = 0.0001;
 float friction = 0.1;
 
+color racketColor = color(0);
+float racketWidth = 100;
+float racketheight = 10;
+int racketBounceRate = 20;
+
 void setup() {
     size(500,500);
     ballX=width/4;
@@ -39,6 +44,8 @@ void gameScreen() {
     drawBall();
     applyGravity();
     keepInScreen();
+    drawRacket();
+    watchRacketBounce();
 }
 
 
@@ -86,4 +93,21 @@ void makeBounceTop(float surface) {
     ballY = surface + (ballSize/2);
     ballSpeedVert *= -1;
     ballSpeedVert -= (ballSpeedVert * airFriction);
+}
+
+void drawRacket() {
+    fill(racketColor);
+    rectMode(CENTER);
+    rect(mouseX, mouseY, racketWidth, racketheight);
+}
+
+void watchRacketBounce() {
+    float overhead = mouseY - pmouseY;
+    if ((ballX + (ballSize/2) > mouseX - (racketWidth/2)) && (ballX - (ballSize/2)) < mouseX + (racketWidth/2)) {
+    } if (dist(ballX, ballY, ballX, mouseY) <= (ballSize/2)  + abs(overhead)) {
+        makeBounceBottom(mouseY);
+    } if (overhead < 0) {
+        ballY += overhead;
+        ballSpeedVert += overhead;
+    }
 }
