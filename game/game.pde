@@ -24,7 +24,7 @@
     int minGapHeight = 200;
     int maxGapHeight = 300;
     int wallWidth = 80;
-    color wallColors = color(0);
+    color wallColors = color(0, 180, 255);
     ArrayList<int[]> walls = new ArrayList<int[]>();
 
 
@@ -70,6 +70,7 @@
         wallAdder();
         wallHandler();
         drawHealthBar();
+        printScore();
     }
 
 
@@ -79,8 +80,10 @@
         fill(255);
         textSize(30);
         text("Game Over", height/2, width/2 -20);
+        textSize(20);
+        text("Score: " + score, width/2, height/2 + 15);
         textSize(15);
-        text("Click to Restart", height/2, width/2 + 10);
+        text("Click to Restart", height/2, width/2 + 40);
     }
 
     public void mousePressed() {
@@ -211,8 +214,8 @@ void watchRacketBounce() {
 
         rectMode(CORNER);
         fill(wallColors);
-        rect(gapWalX, 0, gapWallWidth, gapWallY);
-        rect(gapWalX, gapWallY+gapWallHeight, gapWallWidth, height-(gapWallY+gapWallHeight));
+        rect(gapWalX, 0, gapWallWidth, gapWallY, 20);
+        rect(gapWalX, gapWallY+gapWallHeight, gapWallWidth, height-(gapWallY+gapWallHeight), 20);
         
     }
 
@@ -296,7 +299,7 @@ void watchRacketBounce() {
     }
 
     void gameOver() {
-
+        gameScreen = 2;
     }
 
     void score() {
